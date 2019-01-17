@@ -35,9 +35,10 @@ class HomePagePresenter(
             view?.showProgressBar()
             view?.hideEmptyView()
 
+            val leaguesName = ArrayList<String?>()
+
             try {
                 val response = usecase.getAllLeagues().await()
-                val leaguesName = ArrayList<String?>()
 
                 response.let {
                     when {
@@ -58,6 +59,10 @@ class HomePagePresenter(
                 view?.showError("Error while fetching club list")
             } finally {
                 view?.hideProgressBar()
+
+                if(leaguesName.isEmpty()) {
+                    emptyOrErrorResult()
+                }
             }
         }
     }
@@ -67,9 +72,10 @@ class HomePagePresenter(
             view?.showProgressBar()
             view?.hideEmptyView()
 
+            val teamList = ArrayList<Teams.TeamsData>()
+
             try {
                 val response = usecase.searchAllTeams(league).await()
-                val teamList = ArrayList<Teams.TeamsData>()
 
                 response.let {
                     when {
@@ -85,10 +91,13 @@ class HomePagePresenter(
                     }
                 }
             } catch (error: Exception) {
-                emptyOrErrorResult()
                 view?.showError("Error while fetching club list")
             } finally {
                 view?.hideProgressBar()
+
+                if(teamList.isEmpty()) {
+                    emptyOrErrorResult()
+                }
             }
         }
     }
