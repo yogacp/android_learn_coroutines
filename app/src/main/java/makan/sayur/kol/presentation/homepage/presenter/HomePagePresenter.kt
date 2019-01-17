@@ -18,7 +18,7 @@ class HomePagePresenter(
 ) : HomePageContract.UserActionListener {
 
     var mLeague = ""
-    var mArrLeagues = ArrayList<String>()
+    var mArrLeagues = ArrayList<String?>()
     var mTeamsData = ArrayList<Teams.TeamsData>()
 
     private var view: HomePageContract.View? = null
@@ -37,12 +37,24 @@ class HomePagePresenter(
 
             try {
                 val response = usecase.getAllLeagues().await()
-                val leaguesName = ArrayList<String>()
-                response.leagues?.forEach { leaguesName.add(it.strLeague!!) }
-                view?.setupLeaguesAdapter(leaguesName)
+                val leaguesName = ArrayList<String?>()
+
+                response.let {
+                    when {
+                        it.isSuccessful -> {
+                            if(it.body() != null) {
+                                it.body()?.leagues?.forEach { leagues -> leaguesName.add(leagues.strLeague) }
+                                view?.setupLeaguesAdapter(leaguesName)
+                            } else {
+                                emptyOrErrorResult()
+                            }
+                        }
+                        else -> {
+                            emptyOrErrorResult()
+                        }
+                    }
+                }
             } catch (error: Exception) {
-                view?.showEmptyView()
-                view?.clearTeamList()
                 view?.showError("Error while fetching club list")
             } finally {
                 view?.hideProgressBar()
@@ -58,18 +70,32 @@ class HomePagePresenter(
             try {
                 val response = usecase.searchAllTeams(league).await()
                 val teamList = ArrayList<Teams.TeamsData>()
-                response.teams?.forEach {
-                    teamList.add(it)
+
+                response.let {
+                    when {
+                        it.isSuccessful -> {
+                            if(it.body() != null) {
+                                it.body()?.teams?.forEach { teams -> teamList.add(teams) }
+                                view?.setupAdapter(teamList)
+                            }
+                        }
+                        else -> {
+                            emptyOrErrorResult()
+                        }
+                    }
                 }
-                view?.setupAdapter(teamList)
             } catch (error: Exception) {
-                view?.showEmptyView()
-                view?.clearTeamList()
+                emptyOrErrorResult()
                 view?.showError("Error while fetching club list")
             } finally {
                 view?.hideProgressBar()
             }
         }
+    }
+
+    override fun emptyOrErrorResult() {
+        view?.showEmptyView()
+        view?.clearTeamList()
     }
 
 }

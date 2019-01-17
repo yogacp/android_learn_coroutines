@@ -133,7 +133,7 @@ class HomePageActivity : AppCompatActivity(), HomePageContract.View, SwipeRefres
         }
     }
 
-    override fun setupLeaguesAdapter(leagues: ArrayList<String>) {
+    override fun setupLeaguesAdapter(leagues: ArrayList<String?>) {
         presenter.mArrLeagues = leagues
         presenter.mArrLeagues.sortBy { it }
         val mAdapter = ArrayAdapter(

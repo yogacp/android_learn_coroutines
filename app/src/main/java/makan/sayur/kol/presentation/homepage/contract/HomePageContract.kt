@@ -13,7 +13,7 @@ class HomePageContract {
         fun initData()
         fun loadImageToImageView(imageSource: String?, imgView: ImageView, progressBar: ProgressBar)
         fun setupAdapter(fcList: ArrayList<Teams.TeamsData>?)
-        fun setupLeaguesAdapter(leagues: ArrayList<String>)
+        fun setupLeaguesAdapter(leagues: ArrayList<String?>)
         fun setupToolbar(title: String?)
         fun setupUiSpinner()
         fun showError(message: String)
@@ -28,6 +28,7 @@ class HomePageContract {
         fun onAttachedView(activity: View)
         fun getListFootballClub(league: String)
         fun getAllLeagues()
+        fun emptyOrErrorResult()
     }
 
     interface Router {
