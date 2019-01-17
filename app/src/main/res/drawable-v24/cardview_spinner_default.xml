@@ -6,9 +6,9 @@
             <item>
                 <shape
                     android:shape="rectangle" >
-                    <solid android:color="#0288D1" />
+                    <solid android:color="#388e3c" />
                     <stroke android:width="3px"
-                        android:color="#0288D1" />
+                        android:color="#388e3c" />
                     <padding android:bottom="3dp"
                         android:left="3dp"
                         android:right="3dp"
