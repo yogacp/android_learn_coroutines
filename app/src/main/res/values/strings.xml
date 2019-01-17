@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Learning Kotlin Coroutines</string>
+    <string name="menu_title">Football Club Menu</string>
+    <string name="menu_football_list">Football Club</string>
+    <string name="menu_football_match">Football Match</string>
+
+    <!-- Empty List -->
+    <string name="empty_list_title">Ooops, Maaf</string>
+    <string name="empty_list_content">Belum ada data yang bisa ditampilkan</string>
+
+    <!-- Detail Fc -->
+    <string name="img_content_desc">Detail Images</string>
+
+    <!-- Match Detail -->
+    <string name="md_content1">FC Bola Apapun</string>
+    <string name="md_content2">Detail FC Bola Apapun</string>
+</resources>
