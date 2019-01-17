@@ -23,7 +23,7 @@ class HomePagePresenter(
 
     private var view: HomePageContract.View? = null
     private val job = SupervisorJob()
-    private val scope = CoroutineScope(dispatcher.mainThread() + job)
+    val scope = CoroutineScope(dispatcher.mainThread() + job)
 
     override fun onAttachedView(activity: HomePageContract.View) {
         view = activity

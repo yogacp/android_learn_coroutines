@@ -15,6 +15,8 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_homepage.*
 import kotlinx.android.synthetic.main.item_list_football.view.*
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.cancelChildren
 import makan.sayur.kol.R
 import makan.sayur.kol.data.responses.teams.Teams
 import makan.sayur.kol.external.adapter.setUp
@@ -47,6 +49,13 @@ class HomePageActivity : AppCompatActivity(), HomePageContract.View, SwipeRefres
 
     override fun onBackPressed() {
         finish()
+    }
+
+    override fun onPause() {
+        if(isFinishing) {
+            presenter.scope.coroutineContext.cancelChildren()
+        }
+        super.onPause()
     }
 
     override fun onRefresh() {
