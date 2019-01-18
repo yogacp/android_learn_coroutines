@@ -14,8 +14,8 @@ import org.koin.dsl.module.module
  * Android Engineer
  */
 val homePageModule = module {
-    single<SportDbRepository> { SportDbDataStore(get()) }
-    single<HomepageUseCase> { HomepageInteractor(get(), get()) }
+    single<SportDbRepository> { SportDbDataStore(get(), get()) }
+    single<HomepageUseCase> { HomepageInteractor(get()) }
     single { HomepageRouter(get(), androidContext()) }
     single { HomePagePresenter(get(), get()) }
 }
